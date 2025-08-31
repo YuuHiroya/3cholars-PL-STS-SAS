@@ -8,4 +8,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: '3cholars-pl-sts-sas.test',
+        port: 5173,
+        hmr: {
+            host: '3cholars-pl-sts-sas.test',
+        },
+    },
 });
