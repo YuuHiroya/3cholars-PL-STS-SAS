@@ -21,6 +21,9 @@ export default {
                 '40': '40px',
                 '20': '20px',
                 '16': '16px',
+            }, 
+            colors: {
+                primary: '#1b1b18',
             }
         },
     },
