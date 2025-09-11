@@ -1,6 +1,7 @@
 <x-guest-layout>
     <div class="min-h-screen flex items-center justify-center bg-[#F2F4F3] font-[Montserrat]">
-        <div class="w-11/12 md:w-4/5 lg:w-3/4 bg-white shadow-lg rounded-lg flex flex-col md:flex-row overflow-hidden">
+        <div
+            class="w-11/12 md:w-4/5 lg:w-3/4 mt-4 bg-white shadow-lg rounded-lg flex flex-col md:flex-row overflow-hidden">
 
             <!-- Left Section -->
             <div class="w-full md:w-1/2 relative">
@@ -35,7 +36,8 @@
             <!-- Right Section -->
             <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
                 <h2 class="text-[40px] font-bold text-[#0B2027] mb-2">Are you new here?</h2>
-                <p class="text-[16px] text-[#838383] mb-6">Please register your information so we can create an account for you!!</p>
+                <p class="text-[16px] text-[#838383] mb-2">Please register your information so we can create an account
+                    for you!!</p>
 
                 <!-- Form -->
                 <form method="POST" action="{{ route('register') }}" class="space-y-5">
@@ -43,54 +45,56 @@
 
                     <!-- username -->
                     <div>
-                        <p class="font-semibold font-size: 20px">Name</p>
+                        <label for="name" class="block font-semibold text-[16px] mb-1">Username</label>
+
                         <input id="name" type="text" name="name" :value="old('name')" required autofocus
-                            placeholder=""
+                            placeholder="Enter your username"
                             class="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
                     <!-- Email -->
                     <div>
-                        <p class="font-semibold font-size: 20px">Email</p>
+                        <label for="email" class="block font-semibold text-[16px] mb-1">Email</label>
+
                         <input id="email" type="email" name="email" :value="old('email')" required autofocus
-                            placeholder=""
+                            placeholder="Enter your email"
                             class="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
                     <!-- Password -->
-                    <div class="mt-4">
-                        <label for="password" class="block font-semibold text-[20px] mb-1">Password</label>
-
+                    <div>
+                        <label for="password" class="block font-semibold text-[16px] mb-1">Password</label>
                         <div class="relative">
-                            <input id="password" type="password" name="password" required placeholder=""
+                            <input id="password" type="password" name="password" required
+                                placeholder="Enter your password"
                                 class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-md text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
 
-                            <!-- Tombol toggle password -->
-                            <button type="button" id="togglePasswordBtn"
-                                class="absolute right-3 top-1/2 -translate-y-1/2">
-                                <img id="toggleIcon" src="{{ asset('image/hidden.png') }}" class="h-6 w-6">
+                            <!-- Button Toggle -->
+                            <button type="button"
+                                class="toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-gray-600">
+                                <i class="bi bi-eye-fill text-xl toggle-icon"></i>
                             </button>
                         </div>
-
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
+
                     <!-- Confirm Password -->
                     <div class="mt-4">
-                        <label for="password_confirmation" class="block font-semibold text-[20px] mb-1">Confirm Password</label>
-
+                        <label for="password_confirmation" class="block font-semibold text-[16px] mb-1">Confirm
+                            Password</label>
                         <div class="relative">
-                            <input id="password_confirmation" type="password" name="password_confirmation" required placeholder=""
+                            <input id="password_confirmation" type="password" name="password_confirmation" required
+                                placeholder="Confirm your password"
                                 class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-md text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
 
-                            <!-- Tombol toggle password -->
-                            <button type="button" id="togglePasswordBtn"
-                                class="absolute right-3 top-1/2 -translate-y-1/2">
-                                <img id="toggleIcon" src="{{ asset('image/hidden.png') }}" class="h-6 w-6">
+                            <!-- Button Toggle -->
+                            <button type="button"
+                                class="toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-[#0B2027]">
+                                <i class="bi bi-eye-fill text-xl toggle-icon"></i>
                             </button>
                         </div>
-
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
 
@@ -100,10 +104,10 @@
                             <input type="checkbox" name="remember" class="accent-[#090979]">
                             <span class="text-[#838383]">Remember Me</span>
                         </label>
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}"
+                        @if (Route::has('login'))
+                            <a href="{{ route('login') }}"
                                 class="font-bold bg-gradient-to-r from-[#020024] via-[#090979] to-[#00D4FF] text-transparent bg-clip-text hover:underline">
-                                Forgot Password?
+                                Already Registered?
                             </a>
                         @endif
                     </div>
@@ -111,7 +115,7 @@
                     <!-- Button -->
                     <button type="submit"
                         class="w-full py-3 rounded-md font-bold text-[16px] text-white bg-[#1565C0] hover:bg-[#0d47a1] transition">
-                        Login
+                        Create Account
                     </button>
                 </form>
             </div>

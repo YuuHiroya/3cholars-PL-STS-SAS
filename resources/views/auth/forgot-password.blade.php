@@ -1,25 +1,83 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body class="bg-[#FAFAFA] min-h-screen flex flex-col items-center justify-center px-6">
+
+    <!-- Logo -->
+    <div class="mb-6">
+        <img src="/image/Logo.png" alt="3cholars Logo" class="w-16 mx-auto">
     </div>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <!-- Title -->
+    <h1 class="text-2xl md:text-3xl font-bold text-center text-[#0d47a1] mb-3">
+        Forgot Your Password?
+    </h1>
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <!-- Description -->
+    <p class="text-center text-[#838383] mb-4 max-w-3xl">
+        Forgot your password? No problem. Just let us know your email address and we will
+        email you a password reset link that will allow you to choose a new one.
+    </p>
+
+    <!-- Form -->
+    <form action="{{ route('password.email') }}" method="POST" class="w-full max-w-md space-y-4">
         @csrf
-
-        <!-- Email Address -->
+        <!-- Email -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <label for="email" class="block mb-1 text-gray-800 font-medium">Email</label>
+            <input id="email" name="email" type="email" required placeholder="e.g email@gmail.com"
+                class="block w-full rounded-md border-gray-300 focus:border-[#1565c0] focus:ring-[#1565c0]">
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+        <!-- Button -->
+        <div>
+            <button type="submit"
+                class="w-full py-3 bg-[#1565c0] text-[#FAFAFA] font-semibold rounded-md shadow-md hover:bg-[#0d47a1] transition">
+                Send Email
+            </button>
         </div>
     </form>
-</x-guest-layout>
+
+    <!-- ✅ Popup Berhasil -->
+    @if (session('status'))
+        <div id="popup-success" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center max-w-sm">
+                <h2 class="text-lg font-bold text-green-600 mb-2">Berhasil</h2>
+                <p class="text-gray-700">{{ session('status') }}</p>
+            </div>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                window.location.href = "{{ route('login') }}"; // redirect ke login
+            }, 2000);
+        </script>
+    @endif
+
+    <!-- ❌ Popup Gagal -->
+    @if ($errors->has('email'))
+        <div id="popup-error" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center max-w-sm">
+                <h2 class="text-lg font-bold text-red-600 mb-2">Gagal</h2>
+                <p class="text-gray-700">{{ $errors->first('email') }}</p>
+            </div>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                window.location.href = "{{ route('login') }}"; // redirect ke login
+            }, 2000);
+        </script>
+    @endif
+
+
+</body>
+
+</html>

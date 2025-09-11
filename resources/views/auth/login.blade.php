@@ -35,7 +35,7 @@
             <!-- Right Section -->
             <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
                 <h2 class="text-[40px] font-bold text-[#0B2027] mb-2">Hey, Hello!</h2>
-                <p class="text-[16px] text-[#838383] mb-6">Enter the information you entered while registrating</p>
+                <p class="text-[16px] text-[#838383] mb-2">Enter the information you entered while registrating</p>
 
                 <!-- Form -->
                 <form method="POST" action="{{ route('login') }}" class="space-y-5">
@@ -43,28 +43,28 @@
 
                     <!-- Email -->
                     <div>
-                        <p class="font-semibold font-size: 20px">Email</p>
+                        <label for="email" class="block font-semibold text-[16px] mb-1">Email</label>
+
                         <input id="email" type="email" name="email" :value="old('email')" required autofocus
-                            placeholder=""
+                            placeholder="Enter your email"
                             class="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
 
                     <!-- Password -->
-                    <div class="mt-4">
-                        <label for="password" class="block font-semibold text-[20px] mb-1">Password</label>
-
+                    <div>
+                        <label for="password" class="block font-semibold text-[16px] mb-1">Password</label>
                         <div class="relative">
-                            <input id="password" type="password" name="password" required placeholder=""
+                            <input id="password" type="password" name="password" required
+                                placeholder="Enter your password"
                                 class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-md text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
 
-                            <!-- Tombol toggle password -->
-                            <button type="button" id="togglePasswordBtn"
-                                class="absolute right-3 top-1/2 -translate-y-1/2">
-                                <img id="toggleIcon" src="{{ asset('image/hidden.png') }}" class="h-6 w-6">
+                            <!-- Button Toggle -->
+                            <button type="button"
+                                class="toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-[#0B2027]">
+                                <i class="bi bi-eye-fill text-xl toggle-icon"></i>
                             </button>
                         </div>
-
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
@@ -76,7 +76,7 @@
                         </label>
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}"
-                                class="font-bold bg-gradient-to-r from-[#020024] via-[#090979] to-[#00D4FF] text-transparent bg-clip-text hover:underline">
+                                class="font-bold bg-gradient-to-r from-[#020027] via-[#090979] to-[#00D4FF] text-transparent bg-clip-text hover:underline">
                                 Forgot Password?
                             </a>
                         @endif

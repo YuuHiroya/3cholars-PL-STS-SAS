@@ -1,5 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Card */
+
+/* Animasi swap */
+.swap-transition {
+    transition: transform 0.42s cubic-bezier(0.2, 0.9, 0.2, 1),
+        opacity 0.35s ease;
+}
+.swap-out {
+    transform: translateY(18px) scale(0.985);
+    opacity: 0;
+}
+.no-pointer {
+    pointer-events: none !important;
+}
+
+/* Link inline: hanya teks yang bisa diklik */
+.link-inline {
+    pointer-events: none;
+}
+.link-inline .link-text {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* footer */
+/* Glow logo */
+@keyframes logoGlow {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 10px rgba(21, 101, 192, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(21, 101, 192, 0.6));
+    }
+}
+.animate-logo-glow {
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+/* Hover underline link */
+.footer-link {
+    position: relative;
+    color: #fafafa;
+    transition: all 0.3s ease;
+}
+.footer-link:hover {
+    color: #71abed;
+}
+.footer-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #71abed;
+    transition: width 0.3s ease;
+}
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* Contact links hover (no underline, only color) */
+.contact-link {
+    color: #fafafa;
+    transition: color 0.3s ease;
+}
+.contact-link:hover {
+    color: #71abed;
+}
+
+/* Floating animation */
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0);
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+    }
+}
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+.delay-2000 {
+    animation-delay: 2s;
+}
+.delay-4000 {
+    animation-delay: 4s;
+}
