@@ -27,26 +27,27 @@ Membantu siswa menemukan beasiswa yang sesuai dengan kebutuhan, minat, dan jurus
 📦 Installation
 1. Clone Repository
 
-git clone https://github.com/USERNAME/3cholars.git
+- git clone [https://github.com/USERNAME/3cholars.git](https://github.com/YuuHiroya/3cholars-PL-STS-SAS.git)
 
-cd 3cholars
+- cd 3cholars
 
 2. Install Dependencies
 
-composer install
+- composer install
 
-npm install
+- npm install
 
 3. Environment Setup
 
-Salin file .env.example menjadi .env:
+- Salin file .env.example menjadi .env:
 
-cp .env.example .env
+- cp .env.example .env
 
 
-Generate app key:
+- Generate app key:
 
-php artisan key:generate
+- php artisan key:generate
+
 
 4. Database Setup
 
@@ -70,18 +71,19 @@ DB_PASSWORD=
 
 Migrasi & seed database:
 
-php artisan migrate --seed
+- php artisan migrate --seed
 
+  
 5. Build Tailwind & Run Server
 
 Setelah git pull, pastikan membangun ulang asset Tailwind:
 
-npm run dev
+- npm run dev
 
 
 Jalankan server Laravel (Herd otomatis, atau artisan manual):
 
-php artisan serve
+- php artisan serve
 
 
 Akses aplikasi di:
