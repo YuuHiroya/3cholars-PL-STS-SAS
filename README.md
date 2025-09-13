@@ -26,11 +26,15 @@ Membantu siswa menemukan beasiswa yang sesuai dengan kebutuhan, minat, dan jurus
 
 📦 Installation
 1. Clone Repository
+
 git clone https://github.com/USERNAME/3cholars.git
+
 cd 3cholars
 
 2. Install Dependencies
+
 composer install
+
 npm install
 
 3. Environment Setup
@@ -52,10 +56,15 @@ Buat database baru di MySQL (kami menggunakan HeidiSQL
 Sesuaikan konfigurasi .env:
 
 DB_CONNECTION=mysql
+
 DB_HOST=127.0.0.1
+
 DB_PORT=3306
+
 DB_DATABASE=3cholars_db
+
 DB_USERNAME=root
+
 DB_PASSWORD=
 
 
@@ -81,16 +90,27 @@ Akses aplikasi di:
 🏗️ Project Architecture
 3cholars/
 │── app/                # Business logic (Controllers, Models, Policies, etc)
+
 │── bootstrap/          # Bootstrap files
+
 │── config/             # Laravel config files
+
 │── database/           # Migrations, factories, seeders
+
 │── public/             # Public assets (compiled CSS/JS, images)
+
 │── resources/          # Views (Blade), Tailwind CSS
+
 │── routes/             # Web & API routes
+
 │── storage/            # Cache, logs, uploads
+
 │── tests/              # Unit & feature tests
+
 │── .env.example        # Environment config sample
+
 │── composer.json       # PHP dependencies
+
 │── package.json        # JS dependencies
 
 🧑‍💻 Contributing
@@ -110,6 +130,7 @@ Buat Pull Request
 📜 License
 
 Proyek ini dirilis di bawah lisensi MIT License.
+
 Silakan gunakan, modifikasi, dan distribusikan sesuai kebutuhan.
 
 🙌 Credits
