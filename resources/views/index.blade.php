@@ -38,14 +38,14 @@
     <!-- Hero Section -->
     <section class="relative" style="height: 100vh;">
         <div class="flex flex-col justify-end items-center text-center h-full px-4 pb-9">
-            <h1 class="text-[64px] md:text-[48px] text-[#f2f4f3] leading-tight">
+            <h1 class="text-2xl md:text-[36px] lg:text-[48px] text-[#f2f4f3] leading-tight">
                 Legacies Forged in
                 <span
-                    class="font-normal text-[96px] md:text-[70px] text-transparent bg-clip-text bg-gradient-to-r from-[#020024] via-[#090979] to-[#00D4FF] font-['Alex_Brush']">
+                    class="font-normal text-[52px] md:text-[70px] text-transparent bg-clip-text bg-gradient-to-r from-[#020024] via-[#090979] to-[#00D4FF] font-['Alex_Brush']">
                     Learning.
                 </span>
             </h1>
-            <p class="text-[#f2f4f3] font-normal text-[18px]">
+            <p class="text-[#f2f4f3] font-normal text-xs md:text-[18px]">
                 3cholars ignites pathways to wisdom.<br>
                 Where ambition meets opportunity, knowledge becomes legacy.
             </p>
@@ -80,11 +80,11 @@
                 <div>
                     <div class="flex items-center mb-6">
                         <img src="{{ asset('image/Logo.png') }}" alt="3cholars Logo"
-                            class="w-20 h-20 object-contain mr-4 animate-logo-glow">
-                        <h2 class="text-5xl font-bold text-[#FAFAFA]">3CHOLARS.</h2>
+                            class="w-16 h-16 md:w-20 md:h-20 object-contain mr-4 animate-logo-glow">
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#FAFAFA]">3CHOLARS.</h2>
                     </div>
 
-                    <p class="text-[#FAFAFA]/80 mb-6 leading-relaxed text-lg">
+                    <p class="text-[#FAFAFA]/80 mb-6 leading-relaxed text-sm md:text-[20px] lg:text-lg">
                         3cholars serves as a trusted gateway to scholarships and academic opportunities,
                         guiding ambitious students toward global education with clarity and purpose.
                     </p>
@@ -92,20 +92,20 @@
                     {{-- Social --}}
                     <div class="flex space-x-4">
                         <a href="#" target="_blank" rel="noopener"
-                            class="social-icon w-12 h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
-                            <i class="bi bi-instagram text-2xl"></i>
+                            class="social-icon w-10 md:w-12 h-10 md:h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
+                            <i class="bi bi-instagram text-lg md:text-xl md:text-2xl"></i>
                         </a>
                         <a href="#" target="_blank" rel="noopener"
-                            class="social-icon w-12 h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
-                            <i class="bi bi-facebook text-2xl"></i>
+                            class="social-icon w-10 md:w-12 h-10 md:h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
+                            <i class="bi bi-facebook text-xl md:text-2xl"></i>
                         </a>
                         <a href="tel:+6289514941001" target="_blank" rel="noopener"
-                            class="social-icon w-12 h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
-                            <i class="bi bi-whatsapp text-2xl"></i>
+                            class="social-icon w-10 md:w-12 h-10 md:h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
+                            <i class="bi bi-whatsapp text-xl md:text-2xl"></i>
                         </a>
                         <a href="#" target="_blank" rel="noopener"
-                            class="social-icon w-12 h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
-                            <i class="bi bi-tiktok text-2xl"></i>
+                            class="social-icon w-10 md:w-12 h-10 md:h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
+                            <i class="bi bi-tiktok text-xl md:text-2xl"></i>
                         </a>
                     </div>
                 </div>
@@ -113,8 +113,8 @@
                 {{-- Links --}}
                 <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div>
-                        <h3 class="text-xl font-semibold mb-6">Information</h3>
-                        <ul class="space-y-3">
+                        <h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Information</h3>
+                        <ul class="space-y-3 ">
                             <li><a href="#" class="footer-link inline-block">Scholarship Listings</a></li>
                             <li><a href="#" class="footer-link inline-block">Application Guide</a></li>
                             <li><a href="#" class="footer-link inline-block">Scholarship Insights</a></li>
@@ -123,7 +123,7 @@
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-semibold mb-6">Company</h3>
+                        <h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Company</h3>
                         <ul class="space-y-3">
                             <li><a href="#" class="footer-link inline-block">About Us</a></li>
                             <li><a href="#" class="footer-link inline-block">Terms &amp; Conditions</a></li>
@@ -133,7 +133,7 @@
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-semibold mb-6">Contact</h3>
+                        <h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6">Contact</h3>
                         <ul class="space-y-3">
                             <li>
                                 <a href="mailto:info@3cholars.com"

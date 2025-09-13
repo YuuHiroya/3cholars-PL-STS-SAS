@@ -15,13 +15,13 @@
                 </div>
             </div>
 
-            <h2 id="main-card-title" class="text-2xl font-bold leading-snug text-[#0b2027]">
+            <h2 id="main-card-title" class="text-xl md:text-2xl font-bold leading-snug text-[#0b2027]">
                 Facts you maybe didn't knew
             </h2>
 
             <div id="main-card-tags" class="flex flex-wrap gap-2 tags-container"></div>
 
-            <p id="main-card-desc" class="text-[#0b2027] text-base leading-relaxed main-desc flex-1">
+            <p id="main-card-desc" class="text-[#0b2027] text-xs md:text-base leading-relaxed main-desc flex-1">
                 In several European countries such as Germany, Finland, and Norway, higher education is completely
                 tuition-free—not only for domestic students but also for international students. This means that
                 whether you are pursuing a Bachelor's, Master's, or even a PhD, you typically do not pay tuition
@@ -44,7 +44,7 @@
     <!-- Related Information -->
     <div class="mt-12">
         <div class="text-center">
-            <h3 class="text-2xl font-bold text-[#0b2027] inline-block relative">
+            <h3 class="text-xl md:text-2xl font-bold text-[#0b2027] inline-block relative">
                 Related Information
                 <span
                     class="block w-1/2 h-1 mx-auto mt-2 mb-8 bg-gradient-to-r from-[#020027] via-[#090979] to-[#00D4FF] rounded"></span>
@@ -61,8 +61,8 @@
                 data-links='[{"text":"Find Scholarships in Canada","url":"#"},{"text":"Full-Ride vs Partial Scholarships","url":"#"},{"text":"Government-Funded Programs","url":"#"}]'>
                 <img src="{{ asset('image/scholarship.jpg') }}" alt="Scholarship" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <h4 class="font-bold text-[#0b2027]">Scholarship Opportunities Worldwide</h4>
-                    <p class="text-sm text-[#0b2027] mt-2 line-clamp-3">Many universities and governments worldwide
+                    <h4 class="font-bold text-[#0b2027] text-sm md:text-md">Scholarship Opportunities Worldwide</h4>
+                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">Many universities and governments worldwide
                         provide a variety of scholarships. These range from merit-based awards for high-achieving
                         students, to need-based grants for those from low-income families. Some programs also
                         prioritize leadership, community involvement, or research potential, giving students
@@ -81,8 +81,8 @@
                 data-links='[{"text":"Top 50 Universities Guide","url":"#"},{"text":"Impact of Rankings on Careers","url":"#"},{"text":"Asian Education Success","url":"#"}]'>
                 <img src="{{ asset('image/edurank.jpg') }}" alt="Education Rank" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <h4 class="font-bold text-[#0b2027]">Global Education Rankings</h4>
-                    <p class="text-sm text-[#0b2027] mt-2 line-clamp-3">International university rankings, such as
+                    <h4 class="font-bold text-[#0b2027] text-sm md:text-md">Global Education Rankings</h4>
+                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">International university rankings, such as
                         QS and Times Higher Education, evaluate institutions using criteria like research impact,
                         teaching quality, employability, and international collaboration. Rankings often influence
                         where students choose to study and help universities measure their global competitiveness in
@@ -102,8 +102,8 @@
     ]'>
                 <img src="{{ asset('image/asiascholar.jpg') }}" alt="Asia Scholarship" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <h4 class="font-bold text-[#0b2027]">Top Scholarships in Asia</h4>
-                    <p class="text-sm text-[#0b2027] mt-2 line-clamp-3">
+                    <h4 class="font-bold text-[#0b2027] text-sm md:text-md">Top Scholarships in Asia</h4>
+                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3 ">
                         Asia is becoming a major destination for international education, offering thousands of
                         scholarships every year. Programs like Japan’s MEXT, South Korea’s Global Scholarship, and
                         China’s CSC aim to attract top talents by covering tuition fees, providing monthly stipends,

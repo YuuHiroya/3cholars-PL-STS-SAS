@@ -5,7 +5,7 @@
             class="text-3xl md:text-4xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#020024] via-[#090979] to-[#00D4FF]">
             Frequently asked questions!!
         </h2>
-        <p class="text-[#838383] text-center max-w-2xl mx-auto mb-12">
+        <p class="text-[#838383] text-center max-w-2xl mx-auto mb-12 text-[14px] lg:text-[16px]">
             Find answers to the most common questions about our scholarship programs and application process.
         </p>
 
@@ -16,7 +16,7 @@
             </div>
 
             <!-- Right FAQ List -->
-            <div class="space-y-4" x-data="{ open: null }">
+            <div class="space-y-4 text-xs md:text-sm lg:text-lg transition-all" x-data="{ open: null }">
                 <!-- Item 1 -->
                 <div class="bg-[#1565c0] rounded-xl shadow border">
                     <button @click="open === 1 ? open = null : open = 1"
