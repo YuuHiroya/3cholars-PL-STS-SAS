@@ -7,7 +7,9 @@ Platform informasi beasiswa berbasis Laravel 12, MySQL, dan TailwindCSS, dengan 
 🎯 Tujuan Aplikasi
 
 Memberikan informasi beasiswa yang lengkap, akurat, dan mudah diakses khusus untuk siswa SMA/SMK kelas 12.
+
 Menjadi media panduan yang praktis agar siswa lebih siap melanjutkan pendidikan ke perguruan tinggi tanpa terhalang masalah biaya.
+
 Membantu siswa menemukan beasiswa yang sesuai dengan kebutuhan, minat, dan jurusan yang ingin ditempuh.
 
 🚀 Features
