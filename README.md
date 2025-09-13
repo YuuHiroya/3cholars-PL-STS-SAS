@@ -1,61 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🎓 3cholars – Scholarship Information Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![image alt](https://github.com/YuuHiroya/3cholars-PL-STS-SAS/blob/692997bf375e04110482b52fddcc8e64f1419959/Logo.png)
 
-## About Laravel
+Platform informasi beasiswa berbasis Laravel 12, MySQL, dan TailwindCSS, dengan pengelolaan database menggunakan HeidiSQL dan MySQL.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+🎯 Tujuan Aplikasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Memberikan informasi beasiswa yang lengkap, akurat, dan mudah diakses khusus untuk siswa SMA/SMK kelas 12.
+Menjadi media panduan yang praktis agar siswa lebih siap melanjutkan pendidikan ke perguruan tinggi tanpa terhalang masalah biaya.
+Membantu siswa menemukan beasiswa yang sesuai dengan kebutuhan, minat, dan jurusan yang ingin ditempuh.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🚀 Features
 
-## Learning Laravel
+🔍 Pencarian beasiswa berdasarkan negara, universitas, atau jurusan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+📑 Tampilan Grid dan List untuk daftar beasiswa
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+📝 Formulir pengajuan aplikasi beasiswa
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+📊 Dashboard siswa (status aplikasi, progress, riwayat)
 
-## Laravel Sponsors
+🔐 Sistem autentikasi (registrasi & login)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+📦 Installation
+1. Clone Repository
+git clone https://github.com/USERNAME/3cholars.git
+cd 3cholars
 
-### Premium Partners
+2. Install Dependencies
+composer install
+npm install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. Environment Setup
 
-## Contributing
+Salin file .env.example menjadi .env:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+cp .env.example .env
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Generate app key:
 
-## Security Vulnerabilities
+php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Database Setup
 
-## License
+Buat database baru di MySQL (kami menggunakan HeidiSQL
+ untuk memudahkan pengelolaan database).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Sesuaikan konfigurasi .env:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=3cholars_db
+DB_USERNAME=root
+DB_PASSWORD=
+
+
+Migrasi & seed database:
+
+php artisan migrate --seed
+
+5. Build Tailwind & Run Server
+
+Setelah git pull, pastikan membangun ulang asset Tailwind:
+
+npm run dev
+
+
+Jalankan server Laravel (Herd otomatis, atau artisan manual):
+
+php artisan serve
+
+
+Akses aplikasi di:
+👉 http://localhost:8000 atau https://3cholars.test (jika menggunakan Herd).
+
+🏗️ Project Architecture
+3cholars/
+│── app/                # Business logic (Controllers, Models, Policies, etc)
+│── bootstrap/          # Bootstrap files
+│── config/             # Laravel config files
+│── database/           # Migrations, factories, seeders
+│── public/             # Public assets (compiled CSS/JS, images)
+│── resources/          # Views (Blade), Tailwind CSS
+│── routes/             # Web & API routes
+│── storage/            # Cache, logs, uploads
+│── tests/              # Unit & feature tests
+│── .env.example        # Environment config sample
+│── composer.json       # PHP dependencies
+│── package.json        # JS dependencies
+
+🧑‍💻 Contributing
+
+Kami membuka kontribusi dari komunitas!
+
+Fork repo ini
+
+Buat branch baru (git checkout -b feature/nama-fitur)
+
+Commit perubahan (git commit -m 'Add new feature')
+
+Push branch (git push origin feature/nama-fitur)
+
+Buat Pull Request
+
+📜 License
+
+Proyek ini dirilis di bawah lisensi MIT License.
+Silakan gunakan, modifikasi, dan distribusikan sesuai kebutuhan.
+
+🙌 Credits
+
+Dibangun dengan ❤️ oleh tim 3cholars
+
+Framework: Laravel
+
+Local Dev: Laravel Herd
+
+Database Management: HeidiSQL
+
+Styling: TailwindCSS
