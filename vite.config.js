@@ -15,11 +15,12 @@ export default defineConfig({
             host: '3cholars-pl-sts-sas.test',
         },
     },
-    server: {
-        host: 'aplikasi_beasiswa_project_sas.test',
-        port: 5173,
-        hmr: {
-            host: 'aplikasi_beasiswa_project_sas.test',
-        },
-    },
+    // NOTE FOR MONICA, UNCOMMENT DULU INI
+    // server: {
+    //     host: 'aplikasi_beasiswa_project_sas.test',
+    //     port: 5173,
+    //     hmr: {
+    //         host: 'aplikasi_beasiswa_project_sas.test',
+    //     },
+    // },
 });

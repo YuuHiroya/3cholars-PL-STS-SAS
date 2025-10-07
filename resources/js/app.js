@@ -70,6 +70,123 @@ window.addEventListener("scroll", function () {
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // supaya ga minus di atas
 });
 
+// Hamburger Menu
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const overlay = document.getElementById("mobile-overlay");
+    const navbar = document.getElementById("navbar");
+    const body = document.body;
+
+    if (!menuBtn || !mobileMenu || !overlay || !navbar) return;
+
+    let menuOpen = false;
+
+    // set initial hidden transform (safety)
+    mobileMenu.style.transform = "translateX(120%)";
+    mobileMenu.setAttribute("aria-hidden", "true");
+    overlay.classList.add("hidden");
+
+    function calcPanelPosition() {
+        const navRect = navbar.getBoundingClientRect();
+        // panel akan menempel di bawah navbar
+        const top = Math.round(navRect.bottom - 1); // -1 untuk menghilangkan garis seam
+        // agar panel rata dengan sisi kanan navbar
+        const rightOffset = Math.round(window.innerWidth - navRect.right);
+        // lebar panel: set separuh dari lebar navbar, tapi tidak lebih dari 80vw dan tidak kurang dari 260px
+        const panelWidth = Math.max(
+            260,
+            Math.min(navRect.width * 0.5, window.innerWidth * 0.8)
+        );
+        return { top, rightOffset, panelWidth };
+    }
+
+    function openMenu() {
+        const pos = calcPanelPosition();
+
+        mobileMenu.style.top = pos.top + "px";
+        mobileMenu.style.right = pos.rightOffset + "px";
+        mobileMenu.style.left = "auto";
+        mobileMenu.style.width = pos.panelWidth + "px";
+
+        // sambung visual dengan navbar: hapus radius atas supaya terlihat connected
+        mobileMenu.style.borderTopLeftRadius = "0px";
+        mobileMenu.style.borderTopRightRadius = "0px";
+
+        // tampilkan panel dengan transform inline
+        mobileMenu.style.transform = "translateX(0)";
+        mobileMenu.setAttribute("aria-hidden", "false");
+
+        overlay.classList.remove("hidden");
+        overlay.classList.add("block");
+
+        menuBtn.innerHTML = '<i class="bi bi-x-lg"></i>';
+        menuBtn.setAttribute("aria-label", "Close menu");
+        menuBtn.setAttribute("aria-expanded", "true");
+
+        // stop scroll background
+        body.style.overflow = "hidden";
+
+        menuOpen = true;
+    }
+
+    function closeMenu() {
+        // sembunyikan dengan transform jauh (jaminan tidak muncul 1px)
+        mobileMenu.style.transform = "translateX(120%)";
+        mobileMenu.setAttribute("aria-hidden", "true");
+
+        overlay.classList.add("hidden");
+        overlay.classList.remove("block");
+
+        // reset border radius ke class default
+        mobileMenu.style.borderTopLeftRadius = "";
+        mobileMenu.style.borderTopRightRadius = "";
+
+        menuBtn.innerHTML = '<i class="bi bi-list"></i>';
+        menuBtn.setAttribute("aria-label", "Open menu");
+        menuBtn.setAttribute("aria-expanded", "false");
+
+        body.style.overflow = "";
+
+        menuOpen = false;
+    }
+
+    function isOpen() {
+        return menuOpen;
+    }
+
+    // toggle main button
+    menuBtn.addEventListener("click", function () {
+        isOpen() ? closeMenu() : openMenu();
+    });
+
+    // overlay click closes
+    overlay.addEventListener("click", closeMenu);
+
+    // close on Escape
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && isOpen()) closeMenu();
+    });
+
+    // saat resize, tutup menu atau recalc posisi
+    window.addEventListener("resize", function () {
+        if (window.innerWidth >= 640 && isOpen()) {
+            closeMenu();
+            return;
+        }
+        // jika masih terbuka hitung ulang posisi dan lebar
+        if (isOpen()) {
+            const pos = calcPanelPosition();
+            mobileMenu.style.top = pos.top + "px";
+            mobileMenu.style.right = pos.rightOffset + "px";
+            mobileMenu.style.width = pos.panelWidth + "px";
+        }
+    });
+
+    // pastikan saat reload mobile masih tersembunyi
+    closeMenu();
+});
+
 // Footer
 document.addEventListener("DOMContentLoaded", () => {
     // Smooth scroll
