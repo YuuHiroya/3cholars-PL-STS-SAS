@@ -6,8 +6,10 @@
         data-description="In several European countries such as Germany, Finland, and Norway, higher education is completely tuition-free—not only for domestic students but also for international students. This means that whether you are pursuing a Bachelor's, Master's, or even a PhD, you typically do not pay tuition fees. As a result, students from all over the world flock to these destinations, making them some of the most diverse and internationally connected education systems on the planet."
         data-img="image/royalbuilding.jpg" data-tags="Culture, Education, Europe"
         data-links='[{"text":"Guide to Studying in Europe","url":"#"},{"text":"Explore Tuition-Free Countries","url":"#"},{"text":"Universities in Germany","url":"#"}]'>
+
         <!-- Konten -->
-        <div class="flex-1 flex flex-col gap-4 justify-between">
+        <div class="flex-1 flex flex-col gap-4 justify-between order-2 md:order-1">
+            <!-- Tombol share dan save -->
             <div class="flex items-center justify-between">
                 <div class="flex gap-4 text-[#0b2027] text-xl">
                     <i id="share-btn" class="bi bi-share cursor-pointer"></i>
@@ -15,27 +17,37 @@
                 </div>
             </div>
 
+            <!-- Judul -->
             <h2 id="main-card-title" class="text-xl md:text-2xl font-bold leading-snug text-[#0b2027]">
                 Facts you maybe didn't knew
             </h2>
 
+            <!-- Gambar (pindah ke bawah judul di mobile) -->
+            <div class="flex-shrink-0 w-full md:hidden">
+                <img id="main-card-img-mobile" src="image/royalbuilding.jpg" alt="Royal Building"
+                    class="rounded-xl w-full h-auto object-cover shadow-md" />
+            </div>
+
+            <!-- Tags -->
             <div id="main-card-tags" class="flex flex-wrap gap-2 tags-container"></div>
 
+            <!-- Deskripsi -->
             <p id="main-card-desc" class="text-[#0b2027] text-xs md:text-base leading-relaxed main-desc flex-1">
                 In several European countries such as Germany, Finland, and Norway, higher education is completely
-                tuition-free—not only for domestic students but also for international students. This means that
-                whether you are pursuing a Bachelor's, Master's, or even a PhD, you typically do not pay tuition
-                fees. As a result, students from all over the world flock to these destinations, making them some of
-                the most diverse and internationally connected education systems on the planet.
+                tuition-free—not only for domestic students but also for international students. This means that whether
+                you are pursuing a Bachelor's, Master's, or even a PhD, you typically do not pay tuition fees. As a
+                result, students from all over the world flock to these destinations, making them some of the most
+                diverse and internationally connected education systems on the planet.
             </p>
 
             <hr class="border-t border-[#838383]" />
 
+            <!-- Links -->
             <div id="main-card-links" class="flex flex-col gap-2 text-sm mt-2 links-container"></div>
         </div>
 
-        <!-- Gambar -->
-        <div class="flex-shrink-0 w-full md:w-1/2">
+        <!-- Gambar utama untuk desktop -->
+        <div class="flex-shrink-0 w-full md:w-1/2 hidden md:block order-1 md:order-2">
             <img id="main-card-img" src="image/royalbuilding.jpg" alt="Royal Building"
                 class="rounded-xl w-full h-full object-cover shadow-md" />
         </div>
@@ -62,31 +74,28 @@
                 <img src="{{ asset('image/scholarship.jpg') }}" alt="Scholarship" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold text-[#0b2027] text-sm md:text-md">Scholarship Opportunities Worldwide</h4>
-                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">Many universities and governments worldwide
-                        provide a variety of scholarships. These range from merit-based awards for high-achieving
-                        students, to need-based grants for those from low-income families. Some programs also
-                        prioritize leadership, community involvement, or research potential, giving students
+                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">Many universities and governments
+                        worldwide provide a variety of scholarships. These range from merit-based awards for
+                        high-achieving students, to need-based grants for those from low-income families. Some programs
+                        also prioritize leadership, community involvement, or research potential, giving students
                         multiple pathways to financial support.</p>
                 </div>
             </div>
 
             <!-- Card 2 -->
             <div class="related-card cursor-pointer bg-[#f2f4f3] rounded-xl shadow-md overflow-hidden transition hover:shadow-lg"
-                data-title="Global Education Rankings" data-description="International university rankings, such as
-                            QS and Times Higher Education, evaluate institutions using criteria like research impact,
-                            teaching quality, employability, and international collaboration. Rankings often influence
-                            where students choose to study and help universities measure their global competitiveness in
-                            education and innovation." data-img="{{ asset('image/edurank.jpg') }}"
-                data-tags="Education, Rankings, Global Index"
+                data-title="Global Education Rankings"
+                data-description="International university rankings, such as QS and Times Higher Education, evaluate institutions using criteria like research impact, teaching quality, employability, and international collaboration. Rankings often influence where students choose to study and help universities measure their global competitiveness in education and innovation."
+                data-img="{{ asset('image/edurank.jpg') }}" data-tags="Education, Rankings, Global Index"
                 data-links='[{"text":"Top 50 Universities Guide","url":"#"},{"text":"Impact of Rankings on Careers","url":"#"},{"text":"Asian Education Success","url":"#"}]'>
                 <img src="{{ asset('image/edurank.jpg') }}" alt="Education Rank" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold text-[#0b2027] text-sm md:text-md">Global Education Rankings</h4>
-                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">International university rankings, such as
-                        QS and Times Higher Education, evaluate institutions using criteria like research impact,
-                        teaching quality, employability, and international collaboration. Rankings often influence
-                        where students choose to study and help universities measure their global competitiveness in
-                        education and innovation.</p>
+                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">International university rankings,
+                        such as QS and Times Higher Education, evaluate institutions using criteria like research
+                        impact, teaching quality, employability, and international collaboration. Rankings often
+                        influence where students choose to study and help universities measure their global
+                        competitiveness in education and innovation.</p>
                 </div>
             </div>
 
@@ -95,22 +104,17 @@
                 data-title="Top Scholarships in Asia"
                 data-description="Asia is becoming a major destination for international education, offering thousands of scholarships every year. Programs like Japan’s MEXT, South Korea’s Global Scholarship, and China’s CSC aim to attract top talents by covering tuition fees, providing monthly stipends, and even offering language training. Beyond financial support, these scholarships open doors to cultural exchange, world-class research opportunities, and international career pathways for students who want to study in Asia’s rapidly growing academic environment."
                 data-img="{{ asset('image/asiascholar.jpg') }}" data-tags="Asia, Scholarships, Education, International"
-                data-links='[
-        {"text":"Korean Global Scholarship","url":"#"},
-        {"text":"Chinese CSC Scholarship","url":"#"},
-        {"text":"ASEAN University Network Grants","url":"#"}
-    ]'>
+                data-links='[{"text":"Korean Global Scholarship","url":"#"},{"text":"Chinese CSC Scholarship","url":"#"},{"text":"ASEAN University Network Grants","url":"#"}]'>
                 <img src="{{ asset('image/asiascholar.jpg') }}" alt="Asia Scholarship" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h4 class="font-bold text-[#0b2027] text-sm md:text-md">Top Scholarships in Asia</h4>
-                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3 ">
-                        Asia is becoming a major destination for international education, offering thousands of
-                        scholarships every year. Programs like Japan’s MEXT, South Korea’s Global Scholarship, and
-                        China’s CSC aim to attract top talents by covering tuition fees, providing monthly stipends,
-                        and even offering language training. Beyond financial support, these scholarships open doors
-                        to cultural exchange, world-class research opportunities, and international career pathways
-                        for students who want to study in Asia’s rapidly growing academic environment.
-                    </p>
+                    <p class="text-xs md:text-sm text-[#0b2027] mt-2 line-clamp-3">Asia is becoming a major destination
+                        for international education, offering thousands of scholarships every year. Programs like
+                        Japan’s MEXT, South Korea’s Global Scholarship, and China’s CSC aim to attract top talents by
+                        covering tuition fees, providing monthly stipends, and even offering language training. Beyond
+                        financial support, these scholarships open doors to cultural exchange, world-class research
+                        opportunities, and international career pathways for students who want to study in Asia’s
+                        rapidly growing academic environment.</p>
                 </div>
             </div>
         </div>

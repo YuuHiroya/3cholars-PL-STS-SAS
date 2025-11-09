@@ -25,13 +25,6 @@
         <source src="{{ asset('image/Oxfordwak.mp4') }}" type="video/mp4">
     </video>
 
-    {{-- Redirect otomatis kalau sudah login --}}
-    @if (Auth::check())
-        <script>
-            window.location.href = "{{ url('/dashboard') }}";
-        </script>
-    @endif
-
     <!-- Navbar -->
     <x-homecomponent.navbar />
 
@@ -93,7 +86,7 @@
                     <div class="flex space-x-4">
                         <a href="#" target="_blank" rel="noopener"
                             class="social-icon w-10 md:w-12 h-10 md:h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
-                            <i class="bi bi-instagram text-lg md:text-xl md:text-2xl"></i>
+                            <i class="bi bi-instagram text-lg md:text-2xl"></i>
                         </a>
                         <a href="#" target="_blank" rel="noopener"
                             class="social-icon w-10 md:w-12 h-10 md:h-12 bg-[#FAFAFA]/20 rounded-full flex items-center justify-center hover:bg-[#FAFAFA]/30 transition transform hover:-translate-y-1 hover:scale-110 shadow-md">
