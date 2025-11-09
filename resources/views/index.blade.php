@@ -25,13 +25,6 @@
         <source src="{{ asset('image/Oxfordwak.mp4') }}" type="video/mp4">
     </video>
 
-    {{-- Redirect otomatis kalau sudah login --}}
-    @if (Auth::check())
-        <script>
-            window.location.href = "{{ url('/dashboard') }}";
-        </script>
-    @endif
-
     <!-- Navbar -->
     <x-homecomponent.navbar />
 

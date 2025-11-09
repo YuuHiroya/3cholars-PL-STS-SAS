@@ -292,7 +292,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderMainFromDataset() {
         mainTitle.textContent = mainCard.dataset.title || "";
         mainDesc.textContent = mainCard.dataset.description || "";
-        mainImg.src = mainCard.dataset.img || "";
+
+        const newImg = mainCard.dataset.img || "";
+        if (mainImg) mainImg.src = newImg;
+        const mainImgMobile = document.getElementById("main-card-img-mobile");
+        if (mainImgMobile) mainImgMobile.src = newImg;
+
         updateTagsAndLinks(mainCard);
     }
 
