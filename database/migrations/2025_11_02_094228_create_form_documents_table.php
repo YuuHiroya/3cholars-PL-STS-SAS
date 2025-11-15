@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('form_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
             $table->string('official_transcript')->nullable();
@@ -19,6 +19,6 @@ return new class extends Migration {
     }
 
     public function down(): void {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('form_documents');
     }
 };

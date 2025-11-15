@@ -6,16 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void {
-        Schema::create('financial_informations', function (Blueprint $table) {
+        Schema::create('form_essay_answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
-            $table->string('annual_family_income')->nullable();
-            $table->text('financial_description')->nullable();
+            $table->text('personal_statement')->nullable();
+            $table->text('why_deserve_scholarship')->nullable();
+            $table->text('future_goals')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void {
-        Schema::dropIfExists('financial_informations');
+        Schema::dropIfExists('form_essay_answers');
     }
 };
