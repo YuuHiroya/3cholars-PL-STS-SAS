@@ -375,3 +375,75 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// Profile Page Logic
+document.addEventListener("DOMContentLoaded", function () {
+    const editBtn = document.getElementById("edit-btn");
+    const cancelBtn = document.getElementById("cancel-btn");
+    const actionButtons = document.getElementById("action-buttons");
+    const cameraLabel = document.getElementById("camera-label");
+
+    const nameInput = document.getElementById("name-input");
+    const majorInput = document.getElementById("major-input");
+    const nameDisplay = document.getElementById("name-display");
+    const majorDisplay = document.getElementById("major-display");
+
+    // Ambil semua input dan display yang pakai pola ID
+    const inputFields = document.querySelectorAll(
+        'input[id$="-input"], textarea[id$="-input"], #country-input'
+    );
+    const displayFields = document.querySelectorAll(
+        'p[id$="-display"], #country-display'
+    );
+
+    if (editBtn) {
+        editBtn.addEventListener("click", () => {
+            // Tombol dan kamera
+            editBtn.classList.add("hidden");
+            actionButtons.classList.remove("hidden");
+            cameraLabel.classList.remove("hidden");
+            nameDisplay.classList.add("hidden");
+            majorDisplay.classList.add("hidden");
+
+            // Ganti tampilan jadi mode edit
+            displayFields.forEach((el) => el.classList.add("hidden"));
+            inputFields.forEach((el) => el.classList.remove("hidden"));
+        });
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+            // Tombol dan kamera
+            editBtn.classList.remove("hidden");
+            actionButtons.classList.add("hidden");
+            cameraLabel.classList.add("hidden");
+            majorDisplay.classList.remove("hidden");
+            nameDisplay.classList.remove("hidden");
+
+            // Kembali ke tampilan normal
+            displayFields.forEach((el) => el.classList.remove("hidden"));
+            inputFields.forEach((el) => el.classList.add("hidden"));
+
+            // Kembalikan nilai input sesuai tampilan lama
+            inputFields.forEach((el) => {
+                const displayEl = document.getElementById(
+                    el.id.replace("-input", "-display")
+                );
+                if (displayEl) el.value = displayEl.textContent.trim();
+            });
+        });
+    }
+});
+
+// Preview gambar profil baru
+function previewProfile(event) {
+    const image = document.getElementById("profile-image");
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            image.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}
