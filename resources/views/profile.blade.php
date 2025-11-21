@@ -1,67 +1,23 @@
 <x-app-layout>
     <div class="min-h-screen bg-[#F2F4F3] font-['Montserrat'] text-[#0B2027] flex flex-col">
         <!-- HEADER -->
-        <header
-            class="w-full h-20 flex justify-between items-center px-10 bg-white border-b shadow-sm fixed top-0 left-0 right-0 z-50">
-            <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='{{ url('/') }}'">
-                <img src="{{ asset('image/Logo.png') }}" alt="Logo" class="w-8 h-8">
-                <h1 class="text-lg font-bold text-[#1565C0]">3cholars</h1>
-            </div>
-
-            <!-- Klik nama atau foto untuk buka profile -->
-            <div class="flex items-center gap-3 cursor-pointer"
-                onclick="window.location.href='{{ route('profile.edit') }}'">
-                <div class="text-sm font-medium">{{ Auth::user()->name ?? 'Guest' }}</div>
-                <img src="{{ Auth::user()->profile_picture
-    ? asset('storage/' . Auth::user()->profile_picture)
-    : 'https://via.placeholder.com/40' }}" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-            </div>
-        </header>
-
+        @include('profile.partials.header')
         <div class="flex flex-1 pt-20">
             <!-- SIDEBAR -->
-            <aside class="w-64 bg-white shadow-md flex flex-col fixed top-20 left-0 h-[calc(100vh-5rem)]">
-                <nav class="flex-1 px-4 py-6 space-y-3 text-[#696969] overflow-y-auto">
-                    <a href="{{ url('/') }}"
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->is('/') ? 'bg-[#1565C0] text-white' : 'hover:bg-[#F2F4F3] hover:text-[#1565C0]' }}">
-                        <iconify-icon icon="fluent:home-16-regular" width="28" height="28"></iconify-icon>
-                        Home
-                    </a>
-                    <a href="{{ url('dashboard') }}"
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->is('dashboard') ? 'bg-[#1565C0] text-white' : 'hover:bg-[#F2F4F3] hover:text-[#1565C0]' }}">
-                        <iconify-icon icon="material-symbols:dashboard-outline-rounded" width="28"
-                            height="28"></iconify-icon>
-                        Dashboard
-                    </a>
-                    <a href="{{ url('scholarships') }}"
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->is('scholarships') ? 'bg-[#1565C0] text-white' : 'hover:bg-[#F2F4F3] hover:text-[#1565C0]' }}">
-                        <iconify-icon icon="mdi:graduation-cap-outline" width="28" height="28"></iconify-icon>
-                        Scholarships
-                    </a>
-                    <a href="{{ url('submissions') }}"
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->is('submissions') ? 'bg-[#1565C0] text-white' : 'hover:bg-[#F2F4F3] hover:text-[#1565C0]' }}">
-                        <iconify-icon icon="line-md:account" width="28" height="28"></iconify-icon>
-                        Submissions
-                    </a>
-                    <a href="{{ url('form') }}"
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->is('form') ? 'bg-[#1565C0] text-white' : 'hover:bg-[#F2F4F3] hover:text-[#1565C0]' }}">
-                        <iconify-icon icon="mdi:account-secure-outline" width="28" height="28"></iconify-icon>
-                        Form
-                    </a>
-                </nav>
-            </aside>
+            @include('profile.partials.sidebar')
 
             <!-- MAIN -->
             <main class="flex-1 ml-64 p-10">
-                <button onclick="window.history.back()"
+                <a href="{{ request('from') ?? url('/') }}"
                     class="flex items-center text-[#1565C0] text-sm mb-3 hover:underline">
                     <iconify-icon icon="mdi:arrow-left" width="18" height="18" class="mr-1"></iconify-icon>
                     Back to Previous Page
-                </button>
+                </a>
 
                 <h1 class="text-2xl font-semibold mb-1">My Profile</h1>
                 <p class="text-[#838383] text-sm mb-6">Manage your personal information and track your scholarship
-                    progress.</p>
+                    progress.
+                </p>
 
                 <div class="bg-white rounded-2xl shadow-sm p-8">
                     <div class="flex justify-between items-start">
@@ -69,17 +25,14 @@
                             <!-- FOTO PROFIL -->
                             <div class="relative w-32 h-32">
                                 <img id="profile-image"
-                                    src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('image/profile-picture.png') }}"
-                                    class="w-32 h-32 rounded-full object-cover border-4 border-[#D1D1D1]">
+                                    src="{{ Auth::user()?->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('image/profile-picture.png') }}"
+                                    class="w-32 h-32 rounded-full object-cover border-4 border-[#1565C0]">
 
                                 <label id="camera-label" for="profile-upload"
                                     class="absolute bottom-0 right-0 bg-[#1565C0] p-2 rounded-full cursor-pointer flex justify-center items-center hover:bg-blue-700 transition w-8 h-8 hidden">
                                     <iconify-icon icon="solar:camera-outline" class="text-white" width="18"
                                         height="18"></iconify-icon>
                                 </label>
-
-                                <input id="profile-upload" name="profile_picture" type="file" accept="image/*"
-                                    class="hidden" onchange="previewProfile(event)">
                             </div>
 
                             <!-- INFO PROFIL -->
@@ -88,35 +41,48 @@
                                 @csrf
                                 @method('PATCH')
 
+                                <input id="profile-upload" name="profile_picture" type="file" accept="image/*"
+                                    class="hidden">
+
+                                <!-- Hidden inputs for academic information -->
+                                <input type="hidden" name="username" id="username-hidden"
+                                    value="{{ Auth::user()?->username ?? '' }}">
+                                <input type="hidden" name="field" id="field-input"
+                                    value="{{ Auth::user()?->field ?? '-' }}">
+                                <input type="hidden" name="education" id="education-input"
+                                    value="{{ Auth::user()?->education ?? "-" }}">
+                                <input type="hidden" name="gpa" id="gpa-input" value="{{ Auth::user()?->gpa ?? '-' }}">
+                                <input type="hidden" name="location" id="location-input"
+                                    value="{{ Auth::user()?->location ?? 'Pontianak, Indonesia' }}">
+                                <input type="hidden" name="preferred_country" id="country-hidden"
+                                    value="{{ Auth::user()?->preferred_country ?? '-' }}">
+                                <textarea name="about" id="about-hidden"
+                                    style="display: none;">{{ Auth::user()?->about ?? '' }}</textarea>
+
                                 <div class="flex flex-col gap-1">
-                                    <h2 id="name-display" class="text-xl font-semibold">
-                                        {{ Auth::user()->name }}
+                                    <h2 id="name-display" class="text-xl font-semibold editable-display">
+                                        {{ Auth::user()?->username}}
                                     </h2>
-                                    <input type="text" name="name" id="name-input"
-                                        class="hidden bg-transparent border-b border-gray-300 focus:outline-none text-xl font-semibold"
-                                        value="{{ Auth::user()->name }}">
+                                    <input type="text" name="username" id="name-input"
+                                        class="editable-input hidden bg-transparent border-b border-gray-300 focus:outline-none text-xl font-semibold"
+                                        value="{{ Auth::user()?->username}}">
 
                                     <div class="flex items-center text-[#838383]">
                                         <iconify-icon icon="material-symbols:mail-outline" width="20" height="20"
                                             class="mr-2"></iconify-icon>
-                                        {{ Auth::user()->email }}
+                                        {{ Auth::user()?->email}}
                                     </div>
 
                                     <div class="flex items-center text-[#838383]">
                                         <iconify-icon icon="mingcute:location-line" width="20" height="20"
                                             class="mr-2"></iconify-icon>
-                                        Pontianak, Indonesia
+                                        {{ Auth::user()?->location ?? 'Pontianak, Indonesia' }}
                                     </div>
 
                                     <div class="flex items-center text-[#838383]">
                                         <iconify-icon icon="mdi:graduation-cap-outline" width="20" height="20"
                                             class="mr-2"></iconify-icon>
-                                        <span id="major-display">
-                                            {{ Auth::user()->major ?? 'Business Analyst - Bachelor’s' }}
-                                        </span>
-                                        <input type="text" name="major" id="major-input"
-                                            class="hidden bg-transparent border-b border-gray-300 focus:outline-none text-[#838383]"
-                                            value="{{ Auth::user()->major ?? 'Business Analyst - Bachelor’s' }}">
+                                        {{ Auth::user()?->field ?? '-' }} - {{ Auth::user()?->education ?? '-' }}
                                     </div>
                                 </div>
 
@@ -125,10 +91,10 @@
                                         class="bg-[#1565C0] text-white text-sm px-4 py-1 rounded-full flex items-center gap-2">
                                         <iconify-icon icon="material-symbols-light:star-outline" width="20"
                                             height="20"></iconify-icon>
-                                        GPA: {{ Auth::user()->gpa ?? '4.0 / 4.0' }}
+                                        GPA: {{ Auth::user()?->gpa ?? '-' }}
                                     </div>
                                     <div class="bg-[#EFEFEF] text-[#0B2027] text-sm px-4 py-1 rounded-full">
-                                        ID: {{ Auth::user()->id + 1000 }}
+                                        ID: {{ (Auth::user()?->id ?? 0) + 1000 }}
                                     </div>
                                     <div class="bg-[#D6F2D3] text-[#1E980E] text-sm px-4 py-1 rounded-full">
                                         Scholarship Seeker
@@ -144,8 +110,6 @@
                                 <iconify-icon icon="cuida:edit-outline" width="20" height="20"></iconify-icon>
                                 Edit Profile
                             </button>
-
-
                             <div class="hidden flex-col gap-2" id="action-buttons">
                                 <button type="submit" form="profile-form"
                                     class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
@@ -175,26 +139,29 @@
                                     <div>
                                         <label class="block text-sm text-[#838383]">Name</label>
                                         <p class="text-[#0B2027]">
-                                            {{ Auth::user()->name }}
+                                            {{ Auth::user()?->username}}
                                         </p>
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">Email Address</label>
-                                        <p class="text-[#0B2027]">{{ Auth::user()->email }}</p>
+                                        <p class="text-[#0B2027]">{{ Auth::user()?->email ?? 'No email' }}</p>
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">Location</label>
-                                        <p class="text-[#0B2027]" id="location-display">
-                                            {{ Auth::user()->location ?? 'Pontianak, Indonesia' }}
+                                        <p class="text-[#0B2027] editable-display" id="location-display">
+                                            {{ Auth::user()?->location ?? 'Pontianak, Indonesia' }}
                                         </p>
+                                        <input type="text"
+                                            class="editable-input hidden border-b border-[#D1D1D1] w-full focus:outline-none location-input"
+                                            value="{{ Auth::user()?->location ?? 'Pontianak, Indonesia' }}">
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">Student ID</label>
-                                        <p class="text-[#0B2027]" id="studentid-display">
-                                            {{ 1000 + Auth::user()->id }}
+                                        <p class="text-[#0B2027] editable-display" id="studentid-display">
+                                            {{ 1000 + (Auth::user()?->id ?? 0) }}
                                         </p>
                                     </div>
                                 </div>
@@ -211,58 +178,140 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm text-[#838383]">Field of Study</label>
-                                        <p class="text-[#0B2027]" id="field-display">
-                                            {{ Auth::user()->field ?? 'Business Analyst' }}
+                                        <p class="text-[#0B2027] editable-display" id="field-display">
+                                            {{ Auth::user()?->field ?? '-' }}
                                         </p>
-                                        <input type="text" name="field" id="field-input"
-                                            class="hidden border-b border-[#D1D1D1] w-full focus:outline-none"
-                                            value="{{ Auth::user()->field ?? 'Business Analyst' }}">
+                                        <input type="text"
+                                            class="editable-input hidden border-b border-[#D1D1D1] w-full focus:outline-none field-input"
+                                            value="{{ Auth::user()?->field ?? '-' }}">
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">Education Information</label>
-                                        <p class="text-[#0B2027]" id="education-display">
-                                            {{ Auth::user()->education ?? "Bachelor's" }}
+                                        <p class="text-[#0B2027] editable-display" id="education-display">
+                                            {{ Auth::user()?->education ?? "-" }}
                                         </p>
-                                        <input type="text" name="education" id="education-input"
-                                            class="hidden border-b border-[#D1D1D1] w-full focus:outline-none"
-                                            value="{{ Auth::user()->education ?? "Bachelor's" }}">
+                                        <input type="text"
+                                            class="editable-input hidden border-b border-[#D1D1D1] w-full focus:outline-none education-input"
+                                            value="{{ Auth::user()?->education ?? "-" }}">
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">GPA</label>
-                                        <p class="text-[#0B2027]" id="gpa-display">
-                                            {{ Auth::user()->gpa ?? '4.0 / 4.0' }}
+                                        <p class="text-[#0B2027] editable-display" id="gpa-display">
+                                            {{ Auth::user()?->gpa ?? '-' }}
                                         </p>
-                                        <input type="text" name="gpa" id="gpa-input"
-                                            class="hidden border-b border-[#D1D1D1] w-full focus:outline-none"
-                                            value="{{ Auth::user()->gpa ?? '4.0 / 4.0' }}">
+                                        <input type="text"
+                                            class="editable-input hidden border-b border-[#D1D1D1] w-full focus:outline-none gpa-input"
+                                            value="{{ Auth::user()?->gpa ?? '-' }}">
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">Preferred Study Country</label>
-                                        <div id="country-display" class="flex gap-2 mt-1">
-                                            <span
-                                                class="bg-[#1565C0] text-white text-sm px-4 py-1 rounded-full">Germany</span>
-                                            <span
-                                                class="bg-[#1565C0] text-white text-sm px-4 py-1 rounded-full">Finland</span>
+
+                                        <!-- Display chips (shows existing countries from database) -->
+                                        <!-- NOTE: Does NOT have editable-display class so it stays visible in edit mode -->
+                                        <div id="country-display" class="flex gap-2 mt-1 flex-wrap">
+                                            @php
+                                                $countryValue = Auth::user()?->preferred_country ?? '-';
+                                                $countries = ($countryValue && $countryValue !== '-')
+                                                    ? array_filter(array_map('trim', explode(',', $countryValue)))
+                                                    : [];
+                                            @endphp
+
+                                            @if(count($countries) > 0)
+                                                @foreach ($countries as $c)
+                                                    <span class="bg-[#1565C0] text-white text-sm px-4 py-1 rounded-full">
+                                                        {{ $c }}
+                                                    </span>
+                                                @endforeach
+                                            @else
+                                                <p class="text-[#838383] text-sm italic">No countries selected yet</p>
+                                            @endif
                                         </div>
-                                        <input type="text" name="preferred_country" id="country-input"
-                                            class="hidden border-b border-[#D1D1D1] w-full focus:outline-none"
-                                            value="Germany, Finland">
+
+                                        <!-- Input box for adding new countries (hidden by default, shows in edit mode) -->
+                                        <input type="text" id="country-input-box"
+                                            class="editable-input hidden border-b border-[#D1D1D1] w-full focus:outline-none mt-2"
+                                            placeholder="Type a country and press Enter">
                                     </div>
 
                                     <div>
                                         <label class="block text-sm text-[#838383]">About Me</label>
-                                        <p class="text-[#0B2027]" id="about-display">
-                                            {{ Auth::user()->about ?? "Passionate computer science student with a focus on artificial intelligence and machine learning. Currently pursuing my Bachelor's degree and actively seeking international scholarship opportunities to further my education in Europe." }}
+                                        <p class="text-[#0B2027] editable-display" id="about-display">
+                                            {{ Auth::user()?->about ?? "-" }}
                                         </p>
-                                        <textarea name="about" id="about-input" rows="4"
-                                            class="hidden border border-[#D1D1D1] rounded-md w-full focus:outline-none p-2">{{ Auth::user()->about ?? '' }}</textarea>
+                                        <textarea id="about-input" rows="4"
+                                            class="editable-input hidden border border-[#D1D1D1] rounded-md w-full focus:outline-none p-2 about-input">{{ Auth::user()?->about ?? '' }}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- MY SAVED SCHOLARSHIPS -->
+                    <div class="mt-10 bg-white rounded-2xl shadow-sm p-8 border border-[#D1D1D1]">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-3">
+                                <iconify-icon icon="icon-park-outline:like" width="32" height="32"
+                                    class="text-[#1565C0]"></iconify-icon>
+                                <h2 class="text-xl font-semibold text-[#0B2027]">My Saved Scholarships</h2>
+                                <span
+                                    class="bg-[#1565C0] text-white text-sm px-3 py-1 rounded-full">{{ count($saved ?? []) }}</span>
+                            </div>
+                        </div>
+
+                        @if(isset($saved) && count($saved) > 0)
+                            <div class="mt-10 bg-white rounded-2xl shadow-sm p-8 border border-[#D1D1D1]">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center gap-3">
+                                        <iconify-icon icon="icon-park-outline:like" width="32" height="32"
+                                            class="text-[#1565C0]"></iconify-icon>
+                                        <h2 class="text-xl font-semibold text-[#0B2027]">My Saved Scholarships</h2>
+                                        <span
+                                            class="bg-[#1565C0] text-white text-sm px-3 py-1 rounded-full">{{ count($saved) }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-6">
+                                    @foreach($saved as $index => $item)
+                                        <div
+                                            class="bg-[#FAFAFA] rounded-xl border border-[#D1D1D1] p-6 {{ ($loop->last && count($saved) == 3) ? 'col-span-2' : '' }}">
+                                            <img src="{{ $item['image'] }}" class="w-full h-40 rounded-lg object-cover mb-4" />
+
+                                            <h3 class="text-lg font-semibold text-[#0B2027]">{{ $item['title'] }}</h3>
+                                            <p class="text-sm text-[#1565C0] mb-2">{{ $item['university'] }}</p>
+
+                                            <div class="space-y-1 text-sm text-[#0B2027]">
+                                                <div class="flex items-center gap-2">
+                                                    <iconify-icon icon="mingcute:calendar-line" width="20"
+                                                        height="20"></iconify-icon>
+                                                    <span>{{ $item['deadline'] }}</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <iconify-icon icon="mynaui:dollar" width="20" height="20"></iconify-icon>
+                                                    <span>{{ $item['funding'] }}</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <iconify-icon icon="tabler:book" width="20" height="20"></iconify-icon>
+                                                    <span>{{ $item['location'] }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex justify-between mt-4">
+                                                <button class="px-4 py-2 bg-[#EFEFEF] text-[#0B2027] rounded-md">More
+                                                    Details</button>
+                                                <button
+                                                    class="px-4 py-2 bg-[#1565C0] text-white rounded-md flex items-center gap-2">
+                                                    <iconify-icon icon="icon-park-outline:share" width="20"
+                                                        height="20"></iconify-icon>
+                                                    Apply Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </main>

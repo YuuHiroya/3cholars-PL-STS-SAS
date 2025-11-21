@@ -2,45 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    // TAMPILKAN HALAMAN PROFILE
+    public function edit(Request $request)
     {
         return view('profile', [
             'user' => $request->user(),
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    // UPDATE PROFILE USER
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $user = auth()->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $request->validate([
+            'username' => 'nullable|string|max:255',
+            'major' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'field' => 'nullable|string|max:255',
+            'education' => 'nullable|string|max:255',
+            'gpa' => 'nullable|string|max:50',
+            'preferred_country' => 'nullable|string',
+            'about' => 'nullable|string',
+            'profile_picture' => 'nullable|image|max:2048'
+        ]);
+
+        // UPLOAD FOTO PROFIL
+        if ($request->hasFile('profile_picture')) {
+            $path = $request->file('profile_picture')->store('profile', 'public');
+            $user->profile_picture = $path;
         }
 
-        $request->user()->save();
+        // UPDATE SEMUA DATA
+        $user->username = $request->username;
+        $user->major = $request->major;
+        $user->location = $request->location;
+        $user->field = $request->field;
+        $user->education = $request->education;
+        $user->gpa = $request->gpa;
+        $user->preferred_country = $request->preferred_country;
+        $user->about = $request->about;
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $user->save();
+
+        return back()->with('success', 'Profile updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    // UPLOAD FOTO VIA AJAX (OPTIONAL)
+    public function uploadPhoto(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|max:2048'
+        ]);
+
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+
+        $user = auth()->user();
+        $user->profile_picture = $path;
+        $user->save();
+
+        return response()->json(['path' => asset('storage/' . $path)]);
+    }
+
+    // HAPUS AKUN USER
+    public function destroy(Request $request)
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
@@ -49,12 +79,11 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return redirect('/');
     }
 }

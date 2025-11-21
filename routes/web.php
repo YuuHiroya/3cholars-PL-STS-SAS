@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\ScholarshipController;
 
 
 
@@ -41,6 +42,13 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload.photo');
+
+/** Scholarship Routes */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/scholarships', [ScholarshipController::class, 'index'])->name('scholarships');
+});
+Route::post('/save-scholarship/{id}', [ScholarshipController::class, 'save']);
 
 
 

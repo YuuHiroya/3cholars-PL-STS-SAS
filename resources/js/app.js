@@ -382,58 +382,278 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelBtn = document.getElementById("cancel-btn");
     const actionButtons = document.getElementById("action-buttons");
     const cameraLabel = document.getElementById("camera-label");
+    const profileForm = document.getElementById("profile-form");
+    const countryDisplay = document.getElementById("country-display");
+    const countryInputBox = document.getElementById("country-input-box");
 
-    const nameInput = document.getElementById("name-input");
-    const majorInput = document.getElementById("major-input");
-    const nameDisplay = document.getElementById("name-display");
-    const majorDisplay = document.getElementById("major-display");
+    // Ambil semua display yang harus disembunyikan saat edit
+    const displayFields = document.querySelectorAll(".editable-display");
+    const inputFields = document.querySelectorAll(".editable-input");
 
-    // Ambil semua input dan display yang pakai pola ID
-    const inputFields = document.querySelectorAll(
-        'input[id$="-input"], textarea[id$="-input"], #country-input'
-    );
-    const displayFields = document.querySelectorAll(
-        'p[id$="-display"], #country-display'
-    );
+    const profileUpload = document.getElementById("profile-upload");
+    if (profileUpload) {
+        profileUpload.addEventListener("change", previewProfile);
+    }
 
     if (editBtn) {
         editBtn.addEventListener("click", () => {
-            // Tombol dan kamera
             editBtn.classList.add("hidden");
             actionButtons.classList.remove("hidden");
             cameraLabel.classList.remove("hidden");
-            nameDisplay.classList.add("hidden");
-            majorDisplay.classList.add("hidden");
 
-            // Ganti tampilan jadi mode edit
-            displayFields.forEach((el) => el.classList.add("hidden"));
-            inputFields.forEach((el) => el.classList.remove("hidden"));
+            // Hide all display fields
+            displayFields.forEach((el) => {
+                if (el.id !== "country-display") {
+                    el.classList.add("hidden");
+                } else {
+                    // Keep country-display visible so chips show alongside input
+                    el.classList.remove("hidden");
+                }
+            });
+
+            // Show all input fields
+            inputFields.forEach((el) => {
+                if (el.id === "country-input-box") {
+                    el.style.display = "block";
+                    el.classList.remove("hidden");
+                } else {
+                    el.classList.remove("hidden");
+                    if (el.tagName === "TEXTAREA") {
+                        el.style.display = "block";
+                    }
+                }
+            });
+
+            // Sinkronisasi nilai dari input display ke hidden inputs di form
+            syncFormInputs();
         });
     }
 
     if (cancelBtn) {
         cancelBtn.addEventListener("click", () => {
-            // Tombol dan kamera
             editBtn.classList.remove("hidden");
             actionButtons.classList.add("hidden");
             cameraLabel.classList.add("hidden");
-            majorDisplay.classList.remove("hidden");
-            nameDisplay.classList.remove("hidden");
 
-            // Kembali ke tampilan normal
+            // Show all display fields
             displayFields.forEach((el) => el.classList.remove("hidden"));
-            inputFields.forEach((el) => el.classList.add("hidden"));
 
-            // Kembalikan nilai input sesuai tampilan lama
+            // Hide all input fields
             inputFields.forEach((el) => {
-                const displayEl = document.getElementById(
-                    el.id.replace("-input", "-display")
-                );
-                if (displayEl) el.value = displayEl.textContent.trim();
+                el.classList.add("hidden");
+                if (el.tagName === "TEXTAREA") {
+                    el.style.display = "none";
+                } else if (el.id === "country-input-box") {
+                    el.style.display = "none";
+                }
             });
+
+            // Reset country input box
+            if (countryInputBox) {
+                countryInputBox.value = "";
+            }
+        });
+    }
+
+    // Fungsi sinkronisasi input dengan hidden inputs
+    function syncFormInputs() {
+        // Get all input elements
+        const locationInput = document.querySelector(".location-input");
+        const fieldInput = document.querySelector(".field-input");
+        const educationInput = document.querySelector(".education-input");
+        const gpaInput = document.querySelector(".gpa-input");
+        const aboutInput = document.getElementById("about-input");
+        const aboutHidden = document.getElementById("about-hidden");
+
+        // Sync location
+        if (locationInput && document.querySelector('input[name="location"]')) {
+            locationInput.addEventListener("input", (e) => {
+                document.querySelector('input[name="location"]').value =
+                    e.target.value;
+            });
+        }
+
+        // Sync field of study
+        if (fieldInput && document.querySelector('input[name="field"]')) {
+            fieldInput.addEventListener("input", (e) => {
+                document.querySelector('input[name="field"]').value =
+                    e.target.value;
+            });
+        }
+
+        // Sync education
+        if (
+            educationInput &&
+            document.querySelector('input[name="education"]')
+        ) {
+            educationInput.addEventListener("input", (e) => {
+                document.querySelector('input[name="education"]').value =
+                    e.target.value;
+            });
+        }
+
+        // Sync GPA
+        if (gpaInput && document.querySelector('input[name="gpa"]')) {
+            gpaInput.addEventListener("input", (e) => {
+                document.querySelector('input[name="gpa"]').value =
+                    e.target.value;
+            });
+        }
+
+        // Sync About Me textarea
+        if (aboutInput && aboutHidden) {
+            aboutInput.addEventListener("input", (e) => {
+                aboutHidden.value = e.target.value;
+            });
+        }
+    }
+
+    if (profileForm) {
+        profileForm.addEventListener("submit", () => {
+            console.log("📝 Form submit event triggered");
+            
+            // Sync username
+            const nameInput = document.querySelector("#name-input");
+            if (nameInput) {
+                document.querySelector('input[name="username"]').value =
+                    nameInput.value;
+            }
+
+            // Sync location
+            const locationInput = document.querySelector(".location-input");
+            if (locationInput) {
+                document.querySelector('input[name="location"]').value =
+                    locationInput.value;
+            }
+
+            // Sync field
+            const fieldInput = document.querySelector(".field-input");
+            if (fieldInput) {
+                document.querySelector('input[name="field"]').value =
+                    fieldInput.value;
+            }
+
+            // Sync education
+            const educationInput = document.querySelector(".education-input");
+            if (educationInput) {
+                document.querySelector('input[name="education"]').value =
+                    educationInput.value;
+            }
+
+            // Sync GPA
+            const gpaInput = document.querySelector(".gpa-input");
+            if (gpaInput) {
+                document.querySelector('input[name="gpa"]').value =
+                    gpaInput.value;
+            }
+
+            // Sync about
+            const aboutInput = document.querySelector(".about-input");
+            if (aboutInput) {
+                document.getElementById("about-hidden").value =
+                    aboutInput.value;
+            }
+
+            // Sync preferred country - country-hidden is already updated by the country logic
+            // Just ensure the value is in the correct format
+            const countryHidden = document.getElementById("country-hidden");
+            if (countryHidden) {
+                console.log("✅ Form submit - Country hidden value:", countryHidden.value);
+                // Country hidden is already maintained by renderCountries() function
+                // Nothing extra needed here - it's already synced
+            }
         });
     }
 });
+
+// Preferred Country Logic
+document.addEventListener("DOMContentLoaded", () => {
+    const countryDisplay = document.getElementById("country-display");
+    const countryInputBox = document.getElementById("country-input-box");
+    const countryHidden = document.getElementById("country-hidden");
+
+    if (!countryDisplay || !countryInputBox || !countryHidden) {
+        console.warn("⚠️ Country input elements not found");
+        return;
+    }
+
+    // Parse default countries from hidden input
+    let countries =
+        countryHidden.value && countryHidden.value !== "-"
+            ? countryHidden.value
+                  .split(",")
+                  .map((c) => c.trim())
+                  .filter((c) => c)
+            : [];
+
+    // Render chips and sync to hidden input
+    function renderCountries() {
+        countryDisplay.innerHTML = "";
+
+        if (countries.length === 0) {
+            countryDisplay.innerHTML =
+                '<p class="text-[#838383] text-sm italic">No countries selected yet</p>';
+        } else {
+            countries.forEach((c) => {
+                if (!c) return;
+                const chip = document.createElement("span");
+                chip.className =
+                    "bg-[#1565C0] text-white text-sm px-4 py-1 rounded-full";
+                chip.textContent = c;
+                countryDisplay.appendChild(chip);
+            });
+        }
+
+        // Sync to hidden input for database
+        countryHidden.value = countries.length > 0 ? countries.join(", ") : "-";
+        console.log("🔄 renderCountries() updated:", {
+            countriesArray: countries,
+            hiddenInputValue: countryHidden.value,
+        });
+    }
+
+    // Event listener for Enter key
+    countryInputBox.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            const val = countryInputBox.value.trim();
+
+            // Validate: Only add non-empty, non-duplicate entries
+            if (!val) {
+                showToast("Please enter a country name");
+                return;
+            }
+
+            if (countries.includes(val)) {
+                showToast(`${val} already added`);
+                countryInputBox.value = "";
+                return;
+            }
+
+            countries.push(val);
+            countryInputBox.value = "";
+            renderCountries();
+            showToast(`Added: ${val}`);
+        }
+    });
+
+    // Initial render
+    renderCountries();
+});
+
+function showToast(message) {
+    const toast = document.createElement("div");
+    toast.textContent = message;
+    toast.className =
+        "fixed bottom-6 right-6 bg-[#1565C0] text-white px-4 py-2 rounded-lg shadow-lg z-50";
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
 
 // Preview gambar profil baru
 function previewProfile(event) {
@@ -447,3 +667,114 @@ function previewProfile(event) {
         reader.readAsDataURL(file);
     }
 }
+
+// ============================================================================
+// PROFILE PAGE: MY SAVED SCHOLARSHIPS (from localStorage)
+// ============================================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    const savedScholarshipsSection = document.querySelector('[class*="My Saved Scholarships"]')?.closest('div');
+    
+    if (!savedScholarshipsSection) {
+        return; // Not on profile page or section doesn't exist
+    }
+
+    // Function to render saved scholarships from localStorage
+    function renderSavedScholarships() {
+        try {
+            const saved = JSON.parse(localStorage.getItem('user_savedScholarships') || '[]');
+            
+            // Update count badge
+            const countBadge = savedScholarshipsSection.querySelector('.bg-\\[\\#1565C0\\]');
+            if (countBadge && countBadge.textContent.trim().match(/^\\d+$/)) {
+                countBadge.textContent = saved.length;
+            }
+
+            // Find or create grid container
+            let gridContainer = savedScholarshipsSection.querySelector('.grid');
+            if (!gridContainer) {
+                gridContainer = document.createElement('div');
+                gridContainer.className = 'grid grid-cols-2 gap-6 mt-6';
+                savedScholarshipsSection.appendChild(gridContainer);
+            }
+
+            // Clear existing items
+            const existingItems = gridContainer.querySelectorAll('[data-scholarship-id]');
+            existingItems.forEach(item => item.remove());
+
+            // Show empty state if no saved scholarships
+            if (saved.length === 0) {
+                gridContainer.innerHTML = `
+                    <div class="col-span-2 text-center py-8 text-[#696969]">
+                        <p class="text-sm">No saved scholarships yet. Browse and click the heart icon to save!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render each saved scholarship
+            saved.forEach(item => {
+                const tile = document.createElement('div');
+                tile.className = 'bg-[#FAFAFA] rounded-xl border border-[#D1D1D1] p-6';
+                tile.setAttribute('data-scholarship-id', item.id);
+                
+                const deadlineFormatted = item.deadline 
+                    ? new Date(item.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                    : 'N/A';
+
+                tile.innerHTML = `
+                    <div class="relative mb-4 h-32 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img src="${item.logoUrl}" alt="${item.university}" class="max-w-full max-h-full object-contain" 
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'text-xs text-gray-500\\'>${item.university}</span>'" />
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-[#0B2027] mb-1">${item.title}</h3>
+                    <p class="text-sm text-[#1565C0] font-semibold mb-3">${item.university}</p>
+
+                    <div class="space-y-2 text-sm text-[#0B2027] mb-4">
+                        <div class="flex items-center gap-2">
+                            <iconify-icon icon="tdesign:location" width="18" height="18" class="text-[#696969]"></iconify-icon>
+                            <span class="text-[#696969]">${item.tags ? item.tags.join(', ') : 'Scholarship'}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <iconify-icon icon="mingcute:calendar-line" width="18" height="18" class="text-[#696969]"></iconify-icon>
+                            <span class="text-[#696969]">${deadlineFormatted}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button class="flex-1 px-4 py-2 bg-[#EFEFEF] text-[#0B2027] rounded-lg text-sm font-medium hover:bg-[#E0E0E0] transition-colors">
+                            Details
+                        </button>
+                        <button class="flex-1 px-4 py-2 bg-[#1565C0] text-white rounded-lg text-sm font-medium hover:bg-[#0d47a1] transition-colors flex items-center justify-center gap-2">
+                            <iconify-icon icon="icon-park-outline:share" width="16" height="16"></iconify-icon>
+                            Apply
+                        </button>
+                    </div>
+                `;
+                
+                gridContainer.appendChild(tile);
+            });
+
+        } catch (error) {
+            console.error('Error rendering saved scholarships:', error);
+        }
+    }
+
+    // Initial render
+    renderSavedScholarships();
+
+    // Listen for updates from scholarships page
+    window.addEventListener('scholarshipsSaved', (e) => {
+        console.log('📡 Profile received scholarship update:', e.detail);
+        renderSavedScholarships();
+    });
+
+    // Also listen to storage events (for multi-tab sync)
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'user_savedScholarships') {
+            console.log('💾 localStorage updated (multi-tab sync)');
+            renderSavedScholarships();
+        }
+    });
+});
