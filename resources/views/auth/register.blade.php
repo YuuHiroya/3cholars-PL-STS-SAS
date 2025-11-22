@@ -45,9 +45,9 @@
 
                     <!-- username -->
                     <div>
-                        <label for="name" class="block font-semibold text-sm md:text-[16px] mb-1">Username</label>
+                        <label for="username" class="block font-semibold text-sm md:text-[16px] mb-1">Username</label>
 
-                        <input id="name" type="text" name="name" :value="old('name')" required autofocus
+                        <input id="username" type="text" name="username" :value="old('name')" required autofocus
                             placeholder="Enter your username"
                             class="w-full px-4 py-3 border border-gray-300 rounded-md text-sm md:text-[16px] focus:ring-2 focus:ring-[#090979] focus:outline-none">
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />

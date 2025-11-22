@@ -9,8 +9,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ScholarshipsController;
 use App\Http\Controllers\Admin\AdminController as AdminSettingsController;
 use App\Http\Controllers\AdminAuthController;
-
-
+use App\Http\Controllers\ScholarshipController;
 
 /** ============== Admin Authentication Routes ============== **/
 
@@ -47,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/upload-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload.photo');
 });
 
 require __DIR__ . '/auth.php';
@@ -55,8 +55,10 @@ require __DIR__ . '/auth.php';
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
 
-/** Profile */
+/** Scholarship Routes */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/scholarships', [ScholarshipController::class, 'index'])->name('scholarships');
+});
+Route::post('/save-scholarship/{id}', [ScholarshipController::class, 'save']);
 
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
