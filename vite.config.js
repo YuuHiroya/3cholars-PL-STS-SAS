@@ -8,19 +8,19 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    server: {
-        host: '3cholars-pl-sts-sas.test',
-        port: 5173,
-        hmr: {
-            host: '3cholars-pl-sts-sas.test',
-        },
-    },
-    // NOTE FOR MONICA, UNCOMMENT DULU INI
     // server: {
-    //     host: 'aplikasi_beasiswa_project_sas.test',
+    //     host: '3cholars-pl-sts-sas.test',
     //     port: 5173,
     //     hmr: {
-    //         host: 'aplikasi_beasiswa_project_sas.test',
+    //         host: '3cholars-pl-sts-sas.test',
     //     },
     // },
+    // // NOTE FOR MONICA, UNCOMMENT DULU INI
+    server: {
+        host: 'aplikasi_beasiswa_project_sas.test',
+        port: 5173,
+        hmr: {
+            host: 'aplikasi_beasiswa_project_sas.test',
+        },
+    },
 });
